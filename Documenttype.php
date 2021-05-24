@@ -59,17 +59,17 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     <div class="Editdocument-item">
                             <div class="Editdocument">
                                 <p>เอกสาร1</p>
-                                <a href="Editdocument.html">แก้ไข</a>
+                                <a href="Editdocument.php">แก้ไข</a>
                             </div>
                             <div class="Editdocument">
                                 <p>เอกสาร2</p>
-                                <a href="Editdocument.html">แก้ไข</a>
+                                <a href="Editdocument.php">แก้ไข</a>
                             </div>
                     </div>
                     <div class="user">
                       <!-- user -->
                     </div>
-                    <a href="Adddocuments.html" id="addcategory" >เพิ่มประเภท</a>
+                    <a href="Adddocuments.php" id="addcategory" >เพิ่มประเภท</a>
                 </figure>
             </div>
         </div>
