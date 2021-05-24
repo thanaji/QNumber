@@ -8,35 +8,30 @@ if (!$_SESSION['login']) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <?php include "dbConn.php";?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EditDocument</title>
+    <title>AddDocument</title>
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 </head>
-
 <body>
 
     <nav>
         <div class="container">
             <div class="nav-top">
                 <div class="tital-logo">
-                    <h1>KASETSART UNIVERSITY</h1>
+                    <h1>KASETSART UNIVERSITY</h1>    
                 </div>
 
                 <div class="nav-contact">
-                    <p>
-                        <?php
-                        // echo '<img src="' . $_SESSION["user_image"] . '" class="img-responsive img-circle img-thumbnail" />';
-                        echo  $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'];
-                        ?>
-                        <a href="logout.php" class="view">Logout</a>
-                    </p>
+                    <p>Username</p>
+                    
                 </div>
+
 
             </div>
 
@@ -45,7 +40,7 @@ if (!$_SESSION['login']) {
                     <p>ระบบออกเลขหนังสือราชการ</p>
                 </div>
                 <div class="statususer">
-                    <p>status : user/admin</p>
+                    <p>status :  user/admin</p>
                 </div>
             </div>
 
@@ -55,10 +50,10 @@ if (!$_SESSION['login']) {
                 <li><a href="#">ดูประวัติทั้งหมด</a></li>
                 <li><a href="Adddocuments.php">เพิ่มเอกสาร</a></li>
                 <li><a href="Editdocument.php">เเก้ไขเอกสาร</a></li>
-                <li><a href="#">จัดการ user</a></li>
-
+                <li><a href="manage_user.php">จัดการ user</a></li>
+                
             </div>
-
+            
         </div>
     </nav>
 
@@ -68,38 +63,37 @@ if (!$_SESSION['login']) {
             <div class="frameitemAddD">
                 <div class="itemAddD">
 
-
-                    <form action="/action_page.php">
+                    
+                    <form action="upload.php" method="POST" enctype="multipart/form-data">
                         <h1>เเก้ไขเอกสาร</h1> <br>
                         <div class="inputdoc">
                             <label for="fname">จาก:&nbsp;</label>
-                            <input type="text" id="fname" name="fname"><br><br><br>
+                            <input type="text" id="sent" name="sent" placeholder="old data"><br><br><br>
                         </div>
                         <div class="inputdoc">
                             <label for="fname">ถึง:&nbsp;&nbsp;&nbsp;</label>
-                            <input type="text" id="fname" name="fname"><br><br><br>
+                            <input type="text" id="to" name="to" placeholder="old data"><br><br><br>
                         </div>
                         <div class="inputdoc">
                             <label for="fname">เรื่อง:</label>
-                            <input type="text" id="fname" name="fname"><br><br><br>
+                            <input type="text" id="sname" name="sname" placeholder="old data"><br><br><br>
                         </div>
                         <div class="inputdoc">
                             <label for="fname">เบอร์:</label>
-                            <input type="text" id="fname" name="fname"><br><br><br>
+                            <input type="text" id="numphone" name="numphone" placeholder="old data"><br><br><br>
                         </div>
 
                         <div class="addpdf">
-                            <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;เอกสาร.pdf</a>
-                            <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แนบไฟล์.pdf</a>
+                            <a href="#" >&nbsp;&nbsp;&nbsp;&nbsp;เอกสาร.pdf</a>
+                            <a href="#" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แนบไฟล์.pdf</a>
                         </div>
 
 
                         <div class="addsub">
-                            <a href="#" class="submit">ตกลง</a>
+                            <input type="submit" class="submit" name="submit" value="ตกลง">
                             <a href="#" class="cancel">ยกเลิก</a>
-
                         </div>
-
+                        
 
 
                     </form>
@@ -108,9 +102,9 @@ if (!$_SESSION['login']) {
 
 
             </div>
+                
 
-
-
+         
         </div>
 
 
@@ -121,13 +115,12 @@ if (!$_SESSION['login']) {
     <footer id="footerAddD">
         <div class="container">
             <div class="footer1">
-                <p>contact</p>
+                  <p>contact</p>
             </div>
         </div>
 
 
-    </footer>
-
+</footer>
+    
 </body>
-
 </html>

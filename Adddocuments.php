@@ -8,7 +8,6 @@ if (!$_SESSION['login']) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,15 +17,13 @@ if (!$_SESSION['login']) {
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 </head>
-
 <body>
     <nav>
         <div class="container">
             <div class="nav-top">
                 <div class="tital-logo">
-                    <h1>KASETSART UNIVERSITY</h1>
+                    <h1>KASETSART UNIVERSITY</h1>    
                 </div>
-
                 <div class="nav-contact">
                     <p>
                         <?php
@@ -36,7 +33,6 @@ if (!$_SESSION['login']) {
                         <a href="logout.php" class="view">Logout</a>
                     </p>
                 </div>
-
             </div>
 
             <div class="nav-buttom">
@@ -44,7 +40,7 @@ if (!$_SESSION['login']) {
                     <p>ระบบออกเลขหนังสือราชการ</p>
                 </div>
                 <div class="statususer">
-                    <p>status : user/admin</p>
+                    <p>status :  user/admin</p>
                 </div>
             </div>
 
@@ -54,10 +50,10 @@ if (!$_SESSION['login']) {
                 <li><a href="#">ดูประวัติทั้งหมด</a></li>
                 <li><a href="Adddocuments.php">เพิ่มเอกสาร</a></li>
                 <li><a href="Editdocument.php">เเก้ไขเอกสาร</a></li>
-                <li><a href="#">จัดการ user</a></li>
-
+                <li><a href="manage_user.php">จัดการ user</a></li>
+                
             </div>
-
+            
         </div>
     </nav>
 
@@ -66,32 +62,35 @@ if (!$_SESSION['login']) {
         <div class="container">
             <div class="frameitemAddD">
                 <div class="itemAddD">
-
-
-                    <form action="insert.php" method="POST">
-
+                    
+                    
+                    <form action="insert.php" method="POST" enctype="multipart/form-data">
                         <h1>เพิ่มประเภทเอกสาร</h1> <br>
                         <div class="inputdoc">
                             <label for="fname">ชื่อเอกสาร:</label>
-                            <input type="text" id="name" name="name"><br><br><br>
+                            <input type="text" id="name" name="name"  required><br><br><br>
                         </div>
                         <div class="inputdoc">
                             <label for="fname">เลข อว:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                            <input type="text" id="num" name="num"><br><br><br>
+                            <input type="text" id="num" name="num" required><br><br><br>
                         </div>
                         <div class="inputdoc">
                             <label for="fname">เลขเริ่มต้น:</label>
-                            <input type="text" id="startnum" name="startnum"><br><br><br>
+                            <input type="text" id="startnum" name="startnum" required><br><br><br>
                         </div>
                         <div class="inputdoc">
                             <label for="fname">ปีปัจจุบัน:&nbsp;&nbsp;</label>
-                            <input type="text" id="year" name="year"><br><br><br>
+                            <input type="text" id="year" name="year" required><br><br><br>
                         </div>
-
+                        <div>
+                            <input type="file" name="fileupload" id="file"><br>
+                        </div>
                         <div class="addsub">
                             <input type="submit" class="submit" name="submit" value="ตกลง">
                             <a href="#" class="cancel">ยกเลิก</a>
                         </div>
+                        
+
 
                     </form>
 
@@ -99,9 +98,9 @@ if (!$_SESSION['login']) {
 
 
             </div>
+                
 
-
-
+         
         </div>
 
 
@@ -109,17 +108,16 @@ if (!$_SESSION['login']) {
 
     </section>
 
-    <footer id="footerAddD">
+<footer id="footerAddD">
         <div class="container">
             <div class="footer1">
-                <p>contact</p>
+                  <p>contact</p>
             </div>
         </div>
 
 
-    </footer>
+</footer>
 
-
+    
 </body>
-
 </html>
