@@ -75,7 +75,7 @@ if (!isset($_SESSION['access_token'])) {
                     // echo '<h3><b>Email :</b> ' . $_SESSION['user_email_address'] . '</h3>';
                     // echo '<h3><a href="logout.php">Logout</h3></div>';
 
-                    header('location:Adddocuments.php');
+                    header('location:requestadmin.php');
                 } else {
                     echo '<div align="center">' . $login_button . '</div>';
                 }
