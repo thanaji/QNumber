@@ -105,11 +105,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
             </div>
 
             <div class="navmenu">
-                <li><a href="#">Home</a></li>
+            <li><a href="#">Home</a></li>
                 <li><a href="requestadmin.php">กรอกขอเลข</a></li>
                 <li><a href="#">ดูประวัติทั้งหมด</a></li>
-                <li><a href="Adddocuments.php">เพิ่มเอกสาร</a></li>
-                <li><a href="Editdocument.php">เเก้ไขเอกสาร</a></li>
+                <li><a href="Documenttype.php">ประเภทเอกสาร</a></li>
                 <li><a href="manage_user.php">จัดการ user</a></li>
                 
             </div>
