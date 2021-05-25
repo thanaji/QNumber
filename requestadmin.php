@@ -31,7 +31,7 @@ if (!$_SESSION['login']) {
                 <div class="nav-contact">
                     <p>
                         <?php
-                        // echo '<img src="' . $_SESSION["user_image"] . '" class="img-responsive img-circle img-thumbnail" />';
+                        //echo '<img src="' . $_SESSION["user_image"] . '" class="img-responsive img-circle img-thumbnail" />';
                         echo  $_SESSION['user_first_name'] . ' ' . $_SESSION['user_last_name'];
                         ?>
                         <a href="logout.php" class="view">Logout</a>
@@ -45,7 +45,7 @@ if (!$_SESSION['login']) {
                     <p>ระบบออกเลขหนังสือราชการ</p>
                 </div>
                 <div class="statususer">
-                    <p>status : user/admin</p>
+                    <p>status : <?php echo $_SESSION['AD_status']; ?></p>
                 </div>
             </div>
 

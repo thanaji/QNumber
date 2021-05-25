@@ -55,7 +55,7 @@ if (!$_SESSION['login']) {
                     <p>ระบบออกเลขหนังสือราชการ</p>
                 </div>
                 <div class="statususer">
-                    <p>status : user/admin</p>
+                    <p>status : <?php echo $_SESSION['AD_status']; ?></p>
                 </div>
             </div>
 

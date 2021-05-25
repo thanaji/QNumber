@@ -308,8 +308,10 @@
     padding: 4px;
     border-radius: 5px;
     transition: .3s;}
+    
 .flex-user-item #addcategory{
     font-size: 25px;
+    margin-right: 100px;
     }
 
 .flex-user-item #addcategory:hover{
@@ -345,9 +347,30 @@
     padding: 2px;
    
 }
+/* user button */
+
+.edituser{
+    display: flex;
+    justify-content:space-between;
+    padding-left: 200px;
+}
 
 
+.edituser p{
+    text-align: center;
+    margin-top: 10px;
+    font-size: 30px;
+    padding: 2px;
+}
 
+.edituser a{
+    background:#A6D1A2 ;
+    margin-right: 200px;
+    font-size: 30px;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 2px; 
+}
 
 
 
