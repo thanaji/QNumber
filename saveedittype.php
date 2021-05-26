@@ -30,7 +30,7 @@ if (!$_SESSION['login']) {
             ";
             if ($db->query($inertcode)==TRUE) {
                 echo "<script>";
-                echo "alert('แก้ไขบัญชีผู้ใช้งานเรียบร้อยแล้ว');"; 
+                echo "alert('แก้ไขประเภทหนังสือเรียบร้อยแล้ว');"; 
                 echo "window.location.href = 'Booktype.php';";
                 echo "</script>";
             }else{

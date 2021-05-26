@@ -12,6 +12,9 @@ if (!$_SESSION['login']) {
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- BootStrap -->
+<link rel="stylesheet" href="/learnphp/theme/css/bootstrap-theme.css">
+
 <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 <style>
@@ -160,7 +163,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                         <td><?php echo $rowuser["Surname"]; ?></td>
                                         <td><?php echo $rowuser["Email"]; ?></td>
                                         <td><?php echo $rowuser["Phone"]; ?></td>
-                                        <td><a href="Edituser.php?userid=<?php echo $rowuser["UserID"];?>">edit</a></td>
+                                        <td>
+                                        <a href="Edituser.php?userid=<?php echo $rowuser["UserID"];?>" >edit</a>
+                                        <a href="delete_user.php?userid=<?php echo $rowuser["UserID"];?>" onclick="return confirm('คุณต้องการที่จะลบข้อมูลนี้หรือไม่?');">delete</a> |
+                                        </td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
