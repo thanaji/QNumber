@@ -14,12 +14,6 @@ if(isset($_POST['submit']))
         echo $ral1;
     }
 
-    /*if(isset($_POST['radio2']))
-    {
-        $ral2 = $_POST['radio2'];
-        echo $ral2;
-    }*/
-
     if(isset($_POST['chk1']))
     {
         $chk1 = $_POST['chk1'];
@@ -79,7 +73,7 @@ if(isset($_POST['submit']))
     $utype = "";
 
     foreach ($allname as $data) {
-        $utype = $utype . $data;
+        $utype = $utype. $data .'.';
       }
     echo $utype;
 

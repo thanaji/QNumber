@@ -1,10 +1,15 @@
 <?php
 require("dbConn.php");
 session_start();
+#print_r($_SESSION);
 
 if (!$_SESSION['login']) {
-    header("location: /myphp/index.php");
+    header("location: /qnumber/index.php");
     exit;
+}else {
+    $staruserid = $_GET["userid"];
+    $_SESSION["userid"] = $staruserid;
+    #echo $staruserid;
 }
 ?>
 
@@ -22,6 +27,42 @@ if (!$_SESSION['login']) {
 </head>
 
 <body>
+    <?php
+        $count = 1;
+        $allarr = array('');
+        $selectuser = "select * from permission where UserID = $staruserid";
+        $reql = $db->query($selectuser);
+        $rowuser = $reql->fetch_assoc();
+        $userid = $rowuser["UserID"];
+        $typeuseid = $rowuser["TypeUseID"];
+        $addarr = strlen($typeuseid);
+        $ii = 0;
+        
+        $word = "";
+        while($ii < $addarr){
+            if($typeuseid[$ii] == '.'){
+                array_push($allarr,$word);
+                $word = "";
+                $ii += 1;
+            }
+            else
+            {
+                $word = $word . $typeuseid[$ii];
+                $ii += 1;
+                
+            }
+        }
+        $_SESSION['oldtypeuse']= $allarr;
+        #print_r($allarr);
+
+        $selectuser = "select * from user where UserID = $staruserid";
+        $reql = $db->query($selectuser);
+        $rowuser = $reql->fetch_assoc();
+        $fullname = $rowuser["Name"];
+        $lastname = $rowuser["Surname"];
+        $status_user = $rowuser["Status"];
+        
+    ?>
     <nav>
         <div class="container">
             <div class="nav-top">
@@ -68,48 +109,77 @@ if (!$_SESSION['login']) {
         <div class="container">
             <div class="frameitemAddD">
                 <div class="itemAddD">
+                    <div class="checkboxad_or_u">
+                        <form action="update_user.php" method="POST">
+                                <h2>ชื่อ : <?php echo $fullname ."  ". $lastname;?></h2>
+                                <label for="status">&nbsp;&nbsp;&nbsp;status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <?php if($status_user == 'admin')
+                                {?>
+                                <label class="container">
+                                    <input type="radio" checked="checked" name="radio1" value="admin">
+                                    <span class="checkmark">admin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                </label>
+                                <label class="container">
+                                    <input type="radio" name="radio1" value ="user">
+                                    <span class="checkmark">user</span>
+                                </label><br><br>
+                                <?php }else{
+                                ?>
+                                    <label class="container">
+                                    <input type="radio"  name="radio1" value="admin">
+                                    <span class="checkmark">admin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                </label>
+                                <label class="container">
+                                    <input type="radio" checked="checked" name="radio1" value ="user">
+                                    <span class="checkmark">user</span>
+                                </label><br><br>
+                                <?php } ?>
 
 
-                    <form action="/action_page.php">
-                        <h1>USER1</h1> <br>
-                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike ">
-                        <label for="vehicle1">ฝ่ายบริหารคณะวิศวกรรมศาสตร์ศรีราชา</label><br>
-                        <input type="checkbox" id="vehicle2" name="vehicle2" value="Bike">
-                        <label for="vehicle2"> คณะวิศวกรรมศาสตร์ศรีราชา</label><br>
-                        <input type="checkbox" id="vehicle3" name="vehicle3" value="Bike">
-                        <label for="vehicle3"> โครงการพิเศษ</label><br>
-                        <input type="checkbox" id="vehicle4" name="vehicle4" value="Bike">
-                        <label for="vehicle4"> สำนักงานเลขานุการ</label><br>
-                        <input type="checkbox" id="vehicle5" name="vehicle5" value="Bike">
-                        <label for="vehicle5"> ภาควิชาวิศวกรรมอุตสาหกรรม</label><br>
-                        <input type="checkbox" id="vehicle6" name="vehicle6" value="Bike">
-                        <label for="vehicle6"> ภาควิชาวิศวกรรมไฟฟ้า</label><br>
-                        <input type="checkbox" id="vehicle7" name="vehicle7" value="Bike">
-                        <label for="vehicle7"> ภาควิชาวิศวกรรมคอมพิวเตอร์</label><br>
-                        <input type="checkbox" id="vehicle8" name="vehicle8" value="Bike">
-                        <label for="vehicle8"> ภาควิชาวิศวกรรมเครื่องกล</label><br>
-                        <input type="checkbox" id="vehicle9" name="vehicle9" value="Bike">
-                        <label for="vehicle9"> ภาควิชาวิศวกรรมโยธา</label><br><br>
-                        <label class="container">
-                            <input type="radio" checked="checked" name="radio">
-                            <span class="checkmark">admin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        </label>
-                        <label class="container">
-                            <input type="radio" name="radio">
-                            <span class="checkmark">user</span>
-                        </label>
+                                <?php
+                                    $namearr = array('');
+                                    $selectuser = "select Name from type";
+                                    $reql = $db->query($selectuser);
+            
+                                    while($row = mysqli_fetch_array($reql)){
+                                        array_push($namearr,$row['Name']);
+                                    }
 
+                                    #echo $userid;
+                                    #print_r($namearr);
+                                    $nameadd = count($namearr);
+                                    #echo $nameadd;
+                                    $_SESSION['nameadd'] = $nameadd;
+                                    
+                                    $start = 1;
+                                    while($start < $nameadd)
+                                    {
+                                        $selectbook = "select TypeID from type where Name = '$namearr[$start]'";
+                                        $reql2 = $db->query($selectbook);
+                                        $rowbook = $reql2->fetch_assoc();
+                                        $typebookid = $rowbook["TypeID"];
+                                        print_r($typebookid);
 
-                        <div class="addsub">
-                            <a href="#" class="submit">ตกลง</a>
-                            <a href="#" class="cancel">ยกเลิก</a>
-
-                        </div>
-
-
-
-                    </form>
-
+                                        if(in_array($typebookid, $allarr))
+                                        {?>
+                                            <input  type="checkbox" id="chk<?php echo $start;?>" name="chk<?php echo $start;?>" value="<?php echo $typebookid ?>" checked="checked">
+                                            <label  for="vehicle1"><?php echo $namearr[$start];?></label><br><br>
+                                        <?php }
+                                        else{ 
+                                        ?>  
+                                            <input  type="checkbox" id="chk<?php echo $start;?>" name="chk<?php echo $start;?>" value="<?php echo $typebookid ?>">
+                                            <label  for="vehicle1"><?php echo $namearr[$start];?></label><br><br>
+                                        <?php }  
+                                        $start += 1;
+                                     }
+                                ?>
+                                <div class="addsub">
+                                    <input type="submit" class="submit" name="submit" value="ตกลง">
+                                    <a href="manage_user.php" class="cancel">ยกเลิก</a>
+                                </div>  
+                        </form>
+                        
+                    </div> 
                 </div>
 
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!$_SESSION['login']) {
-    header("location: /myphp/index.php");
+    header("location: /qnumber/index.php");
     exit;
 }
 ?>

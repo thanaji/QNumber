@@ -2,7 +2,7 @@
 require("dbConn.php");
 session_start();
 if (!$_SESSION['login']) {
-    header("location: /myphp/index.php");
+    header("location: /qnumber/index.php");
     exit;
 }
 ?>
@@ -160,7 +160,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                         <td><?php echo $rowuser["Surname"]; ?></td>
                                         <td><?php echo $rowuser["Email"]; ?></td>
                                         <td><?php echo $rowuser["Phone"]; ?></td>
-                                        <td><a href="Edituser.php?typeid=<?php echo $rowuser["UserID"]; ?>">edit</a></td>
+                                        <td><a href="Edituser.php?userid=<?php echo $rowuser["UserID"];?>">edit</a></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -219,24 +219,35 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     <input type="radio" name="radio1" value ="user">
                     <span class="checkmark">user</span>
                   </label><br><br>
-                <input  type="checkbox" id="chk1" name="chk1" value="1">
-                <label  for="vehicle1">ฝ่ายบริหารคณะวิศวกรรมศาสตร์ศรีราชา</label><br><br>    
-                <input type="checkbox" id="chk2" name="chk2" value="2">
-                <label for="vehicle2"> คณะวิศวกรรมศาสตร์ศรีราชา</label><br> <br>   
-                <input type="checkbox" id="chk3" name="chk3" value="3">
-                <label for="vehicle3"> โครงการพิเศษ</label><br><br>    
-                <input type="checkbox" id="chk4" name="chk4" value="4">
-                <label for="vehicle4"> สำนักงานเลขานุการ</label><br><br>    
-                <input type="checkbox" id="chk5" name="chk5" value="5">
-                <label for="vehicle5"> ภาควิชาวิศวกรรมอุตสาหกรรม</label><br><br>    
-                <input type="checkbox" id="chk6" name="chk6" value="6">
-                <label for="vehicle6"> ภาควิชาวิศวกรรมไฟฟ้า</label><br> <br>   
-                <input type="checkbox" id="chk7" name="chk7" value="7">
-                <label for="vehicle7"> ภาควิชาวิศวกรรมคอมพิวเตอร์</label><br><br>    
-                <input type="checkbox" id="chk8" name="chk8" value="8">
-                <label for="vehicle8"> ภาควิชาวิศวกรรมเครื่องกล</label><br><br>    
-                <input type="checkbox" id="chk9" name="chk9" value="9">
-                <label for="vehicle9"> ภาควิชาวิศวกรรมโยธา</label><br><br><br>   
+                <?php
+                    $namearr = array('');
+                    $selectuser = "select Name from type";
+                    $reql = $db->query($selectuser);
+
+                    while($row = mysqli_fetch_array($reql)){
+                        array_push($namearr,$row['Name']);
+                    }
+                    $nameadd = count($namearr);
+                    #echo $nameadd;
+                    $_SESSION['nameadd'] = $nameadd;
+                                    
+                    $start = 1;
+                    while($start < $nameadd)
+                    {
+                      $selectbook = "select TypeID from type where Name = '$namearr[$start]'";
+                      $reql2 = $db->query($selectbook);
+                      $rowbook = $reql2->fetch_assoc();
+                      $typebookid = $rowbook["TypeID"];
+                      #print_r($typebookid);?>
+                      <input  type="checkbox" id="chk<?php echo $start;?>" name="chk<?php echo $start;?>" value="<?php echo $typebookid ?>">
+                      <label  for="vehicle1"><?php echo $namearr[$start];?></label><br><br>
+                      <?php
+                        
+                      $start += 1;
+                    
+                    } 
+                    ?>  
+                
             </div>  
             <div class="addsub">
               <input type="submit" class="submit" name="submit" value="ตกลง">
