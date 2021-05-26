@@ -13,6 +13,10 @@
 
     if(isset($_POST['submit']))
     {	
+        $fullname = $_POST['Name'];
+        $surname = $_POST['Surname'];
+        $email = $_POST['Email'];
+        $phone = $_POST['Phone'];
         $radi = $_POST['radio1'];
         #echo "$radi";
         while($ii < $nameadd)
@@ -44,11 +48,13 @@
         echo "Record updated successfully<br>";
     }
 
-    $selectuser = "update user  set Status = '$radi' where UserID = '$userid'";
+    $selectuser = "update user  set Status = '$radi',Name = '$fullname',Surname ='$surname',Email='$email',Phone = '$phone' where UserID = '$userid'";
 
     if ($reql = $db->query($selectuser)) {
         echo "Record updated successfully<br>";
     }
+
+    
 
 
     

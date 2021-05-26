@@ -23,5 +23,5 @@ if($_SESSION["AD_userid"]=="" || $_SESSION["AD_name"]=="" || $_SESSION["AD_email
     }else{
         header("location: manage_user.php");
     }
-    
+
 } ?>

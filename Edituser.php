@@ -112,7 +112,32 @@ if (!$_SESSION['login']) {
                     <div class="checkboxad_or_u">
                         <form action="update_user.php" method="POST">
                                 <h2>ชื่อ : <?php echo $fullname ."  ". $lastname;?></h2>
-                                <label for="status">&nbsp;&nbsp;&nbsp;status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <?php
+                                    $selectuser = "select * from user where UserID = '" . $userid . "'";
+                                    $reql = $db->query($selectuser);
+                                    $rowuser = $reql->fetch_assoc(); 
+                                    //echo $rowuser['Name'];
+                                    
+                                ?>
+                                    <div class="inputdoc">
+                                        <label for="Name">ชื่อ:</label>
+                                        <input type="text" id="Name" name="Name" value="<?php echo $rowuser["Name"]; ?>"><br><br><br>
+                                    </div>
+
+                                    <div class="inputdoc">
+                                        <label for="Surname">นามสกุล:</label>
+                                        <input type="text" id="Surname" name="Surname" value="<?php echo $rowuser["Surname"]; ?>"><br><br><br>
+                                    </div>
+
+                                    <div class="inputdoc">
+                                        <label for="Email">Email:</label>
+                                        <input type="text" id="Email" name="Email" value="<?php echo $rowuser["Email"]; ?>"><br><br><br>
+                                    </div>
+
+                                    <div class="inputdoc">
+                                        <label for="Phone">Phonenumber:</label>
+                                        <input type="text" id="Phone" name="Phone" value="<?php echo $rowuser["Phone"]; ?>"><br><br><br>
+                                    </div>
                                 <?php if($status_user == 'admin')
                                 {?>
                                 <label class="container">
