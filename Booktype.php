@@ -82,10 +82,11 @@ if (!$_SESSION['login']) {
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>เลข</th>
-                                    <th>Name</th>
-                                    <th>num</th>
-                                    <th>year</th>
+                                    <th>เลขอว.</th>
+                                    <th>ชื่อหนังสือ</th>
+                                    <th>current_number</th>
+                                    <th>current_year</th>
+                                    <th>action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -100,7 +101,7 @@ if (!$_SESSION['login']) {
                                         <td><?php echo $rowuser["Name"]; ?></td>
                                         <td><?php echo $rowuser["current_number"]; ?></td>
                                         <td><?php echo $rowuser["current_year"]; ?></td>
-                                        <td> <a href="Edittype.php?typeid=<?php echo $rowuser["TypeID"]; ?>">edit</a></td>
+                                        <td> <a href="Edittype.php?typeid=<?php echo $rowuser["TypeID"]; ?>" class ="btn btn-primary">edit</a></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
