@@ -47,9 +47,9 @@ if (!$_SESSION['login']) {
             </div>
 
             <div class="navmenu">
-                <li><a href="#">Home</a></li>
+                <li><a href="home.php">Home</a></li>
                 <li><a href="requestadmin.php">กรอกขอเลข</a></li>
-                <li><a href="#">ดูประวัติทั้งหมด</a></li>
+                <li><a href="activity.php">ดูประวัติทั้งหมด</a></li>
                 <li><a href="Booktype.php">ประเภทเอกสาร</a></li>
                 <li><a href="manage_user.php">จัดการ user</a></li>
 

@@ -50,9 +50,9 @@ if (!$_SESSION['login']) {
             </div>
 
             <div class="navmenu">
-                <li><a href="#">Home</a></li>
+                <li><a href="home.php">Home</a></li>
                 <li><a href="requestadmin.php">กรอกขอเลข</a></li>
-                <li><a href="#">ดูประวัติทั้งหมด</a></li>
+                <li><a href="activity.php">ดูประวัติทั้งหมด</a></li>
                 <li><a href="Booktype.php">ประเภทเอกสาร</a></li>
                 <li><a href="manage_user.php">จัดการ user</a></li>
 
@@ -69,7 +69,7 @@ if (!$_SESSION['login']) {
 
 
                     <form action="/action_page.php">
-                        <h1>กรอกอกสาร</h1>
+                        <h1>กรอกเอกสาร</h1>
                         <div class="inputdoc">
                             <label for="fname">เลือกประเภท:</label>
                             <input type="text" id="fname" name="fname">

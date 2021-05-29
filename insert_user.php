@@ -1,6 +1,7 @@
 <?php
 include "dbConn.php"; // Using database connection file here
-$allname = array('');
+session_start();
+$addnum = $_SESSION['nameadd'];
 if(isset($_POST['submit']))
 {	
     $fullname = $_POST['fname'];
@@ -11,71 +12,30 @@ if(isset($_POST['submit']))
     if(isset($_POST['radio1']))
     {
         $ral1 = $_POST['radio1'];
-        echo $ral1;
+        #echo $ral1;
     }
 
-    if(isset($_POST['chk1']))
+    $countloop = 1;
+    $newword = array('');
+    while($countloop < $addnum)
     {
-        $chk1 = $_POST['chk1'];
-        array_push($allname,$chk1);        
+        if(isset($_POST['chk'.$countloop]))
+        {
+            $ina = $_POST['chk'.$countloop];
+            #echo $ina;
+            array_push($newword,$ina);
+        }
+        $countloop += 1;
     }
 
-    if(isset($_POST['chk2']))
-    {
-        $chk2 = $_POST['chk2'];
-        array_push($allname,$chk2);   
-    }
+    print_r($newword);
+    $cnew = count($newword);
+    #echo $cnew;
 
-    if(isset($_POST['chk3']))
-    {
-        $chk3 = $_POST['chk3'];
-        array_push($allname,$chk3);   
-    }
-
-    if(isset($_POST['chk4']))
-    {
-        $chk4 = $_POST['chk4'];
-        array_push($allname,$chk4);   
-    }
-
-    if(isset($_POST['chk5']))
-    {
-        $chk5 = $_POST['chk5'];
-        array_push($allname,$chk5);   
-    }
-
-    if(isset($_POST['chk6']))
-    {
-        $chk6 = $_POST['chk6'];
-        array_push($allname,$chk6);   
-    }
-
-    if(isset($_POST['chk7']))
-    {
-        $chk7 = $_POST['chk7'];
-        array_push($allname,$chk7);   
-    }
-
-    if(isset($_POST['chk8']))
-    {
-        $chk8 = $_POST['chk8'];
-        array_push($allname,$chk8);   
-    }
-
-    if(isset($_POST['chk9']))
-    {
-        $chk9 = $_POST['chk9'];
-        array_push($allname,$chk9);   
-    }
-
-
-    print_r($allname);
-    $utype = "";
-
-    foreach ($allname as $data) {
+    /*foreach ($allname as $data) {
         $utype = $utype. $data .'.';
       }
-    echo $utype;
+    echo $utype;*/
 
     if(isset($_POST['radio1']))
     {
@@ -88,28 +48,22 @@ if(isset($_POST['submit']))
                $useradd = $row["UserID"];
             }
         }
-        $insert = mysqli_query($db,"INSERT INTO `permission`(`UserID`,`TypeUseID`) VALUES ('$useradd','$utype')");
+
+        #echo $useradd;
+        $countloop = 1;
+        while($countloop < $cnew)
+        {
+            echo $newword[$countloop];
+            #echo $newword[$countloop];
+            $insert = mysqli_query($db,"INSERT INTO `permission`(`UserID`,`TypeUseID`) VALUES ('$useradd','$newword[$countloop]')");
+            $countloop += 1;
+        }
     }
-
-    else{
-        echo "else";
-    }
-
-
-
-
-    #$insert = mysqli_query($db,"INSERT INTO `user`(`Status`,`Name`,`Surname`,`Email`,`Phone`) VALUES ('$number','$fullname','$startnum','$year')");
-
     
-  /*  if(!$insert)
-    {
-        echo mysqli_error();
-    }
-    else
-    {
-        echo "Records added successfully.";
-    }*/
+
+
 }
 
 mysqli_close($db); // Close connection
+header("location: manage_user.php");
 ?>

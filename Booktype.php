@@ -14,6 +14,9 @@ if (!$_SESSION['login']) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Book Type</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" >
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 
     <!-- BootStrap -->
@@ -60,9 +63,9 @@ if (!$_SESSION['login']) {
             </div>
 
             <div class="navmenu">
-                <li><a href="#">Home</a></li>
+                <li><a href="home.php">Home</a></li>
                 <li><a href="requestadmin.php">กรอกขอเลข</a></li>
-                <li><a href="#">ดูประวัติทั้งหมด</a></li>
+                <li><a href="activity.php">ดูประวัติทั้งหมด</a></li>
                 <li><a href="Booktype.php">ประเภทเอกสาร</a></li>
                 <li><a href="manage_user.php">จัดการ user</a></li>
 
@@ -72,25 +75,21 @@ if (!$_SESSION['login']) {
     </nav>
 
     <section id="tour">
-        <div class="container">
+    <div class="container mb-3 mt-3">
+        <table class="table table-striped table-bordered mydatatable" style="width:100%">
+            <thead>
+                <tr>
+                <th>#</th>
+                <th>เลข</th>
+                <th>Name</th>
+                <th>num</th>
+                <th>year</th>
+                <th>edit</th>
 
-            <div class="flex-user">
-                <figure class="flex-user-item">
-                    <h1>ประเภทเอกสาร</h1>
-                    <div class="col">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>เลขอว.</th>
-                                    <th>ชื่อหนังสือ</th>
-                                    <th>current_number</th>
-                                    <th>current_year</th>
-                                    <th>action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
+                </tr>
+            </thead>
+            <tbody>
+            <?php
                                 $selectuser = "select * from type ";
                                 $reql = $db->query($selectuser);
                                 while ($rowuser = $reql->fetch_assoc()) {
@@ -101,21 +100,27 @@ if (!$_SESSION['login']) {
                                         <td><?php echo $rowuser["Name"]; ?></td>
                                         <td><?php echo $rowuser["current_number"]; ?></td>
                                         <td><?php echo $rowuser["current_year"]; ?></td>
-                                        <td> <a href="Edittype.php?typeid=<?php echo $rowuser["TypeID"]; ?>" class ="btn btn-primary">edit</a></td>
+                                        <td class="edit_booktype"> <a href="Edittype.php?typeid=<?php echo $rowuser["TypeID"]; ?>">edit</a></td>
                                     </tr>
                                 <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="user">
-                        <!-- user -->
-                    </div>
-                    <a href="Addtype.php" id="addcategory" class='ml-3 btn btn-primary'>เพิ่มประเภท</a>
-                </figure>
-            </div>
-        </div>
-    </section>
-
+                
+                
+                
+               
+            </tbody>
+            <tfoot>
+                <tr>
+                <th>#</th>
+                <th>เลข</th>
+                <th>Name</th>
+                <th>num</th>
+                <th>year</th>
+                <th>edit</th>
+                </tr>
+            </tfoot>
+        </table>
+        <a href="Addtype.php" id="addcategory" class='ml-3 btn btn-primary'>เพิ่มประเภท</a>
+  </div>
 
 
 
@@ -131,7 +136,16 @@ if (!$_SESSION['login']) {
     </div>
 
     </div>
+    </script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
 
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $('.mydatatable').DataTable();
+</script>
 
 
 </body>

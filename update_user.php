@@ -2,7 +2,7 @@
     include "dbConn.php";
     session_start();
     #print_r($_SESSION);
-    $oldtypeuse = $_SESSION['oldtypeuse'];
+    #$oldtypeuse = $_SESSION['oldtypeuse'];
     $starindex = 2;
     $chkid = 1;
     $nameadd = $_SESSION['nameadd'];
@@ -29,23 +29,24 @@
             $ii += 1;
             $chkid += 1;
         }
-        #print_r($newword);
-    }
-    $ii = 1;
-    $addnewword = ".";
-    $lennew = count($newword);
-    while($ii < $lennew)
-    {
-        $addnewword = $addnewword . $newword[$ii].".";
-        $ii += 1;
-    }
-    #echo $addnewword;
-    #echo $userid;
+        $cnew = count($newword);
+        print_r($newword);
 
-    $selectuser = "update permission  set TypeUseID = '$addnewword' where UserID = '$userid'";
+        $cleanuser = "delete from permission where UserID = '".$userid."'";
+        if ($reql = $db->query($cleanuser)) {
+            echo "Record clea successfully<br>";
+        }
 
-    if ($reql = $db->query($selectuser)) {
-        echo "Record updated successfully<br>";
+        $ii = 1;
+        $countloop = 1;
+        while($countloop < $cnew)
+        {
+            $insert = mysqli_query($db,"INSERT INTO `permission`(`UserID`,`TypeUseID`) VALUES ('$userid','$newword[$countloop]')");
+            $countloop += 1;
+        }
+
+
+
     }
 
     $selectuser = "update user  set Status = '$radi',Name = '$fullname',Surname ='$surname',Email='$email',Phone = '$phone' where UserID = '$userid'";
@@ -53,6 +54,7 @@
     if ($reql = $db->query($selectuser)) {
         echo "Record updated successfully<br>";
     }
+    header("location: manage_user.php");
 
     
 

@@ -29,31 +29,14 @@ if (!$_SESSION['login']) {
 <body>
     <?php
         $count = 1;
-        $allarr = array('');
-        $selectuser = "select * from permission where UserID = $staruserid";
+        $selectuser = "select * from permission where UserID = '$staruserid'";
         $reql = $db->query($selectuser);
         $rowuser = $reql->fetch_assoc();
         $userid = $rowuser["UserID"];
         $typeuseid = $rowuser["TypeUseID"];
         $addarr = strlen($typeuseid);
         $ii = 0;
-        
-        $word = "";
-        while($ii < $addarr){
-            if($typeuseid[$ii] == '.'){
-                array_push($allarr,$word);
-                $word = "";
-                $ii += 1;
-            }
-            else
-            {
-                $word = $word . $typeuseid[$ii];
-                $ii += 1;
-                
-            }
-        }
-        $_SESSION['oldtypeuse']= $allarr;
-        #print_r($allarr);
+        #print_r($rowuser);
 
         $selectuser = "select * from user where UserID = $staruserid";
         $reql = $db->query($selectuser);
@@ -61,6 +44,17 @@ if (!$_SESSION['login']) {
         $fullname = $rowuser["Name"];
         $lastname = $rowuser["Surname"];
         $status_user = $rowuser["Status"];
+
+        $selecttypeuse = "select TypeUseID from permission where UserID = $staruserid";
+        $reqltype = $db->query($selecttypeuse);
+        #$rowtypeuse = $reqltype->fetch_assoc(); 
+
+        $listusetype = array('');
+        while($rowtypeuse = $reqltype->fetch_assoc()) { 
+            array_push($listusetype,$rowtypeuse['TypeUseID']);
+          }
+        #print_r($listusetype);
+        
         
     ?>
     <nav>
@@ -93,9 +87,9 @@ if (!$_SESSION['login']) {
             </div>
 
             <div class="navmenu">
-                <li><a href="#">Home</a></li>
+                <li><a href="home.php">Home</a></li>
                 <li><a href="requestadmin.php">กรอกขอเลข</a></li>
-                <li><a href="#">ดูประวัติทั้งหมด</a></li>
+                <li><a href="activity.php">ดูประวัติทั้งหมด</a></li>
                 <li><a href="Booktype.php">ประเภทเอกสาร</a></li>
                 <li><a href="manage_user.php">จัดการ user</a></li>
 
@@ -104,39 +98,38 @@ if (!$_SESSION['login']) {
         </div>
     </nav>
 
-    <section id="AddDocument">
+    <section id="AddDocumentU">
 
         <div class="container">
-            <div class="frameitemAddD">
+            <div class="frameitemAddU">
                 <div class="itemAddD">
-                    <div class="checkboxad_or_u">
-                        <form action="update_user.php" method="POST">
+                        <form action="update_user.php" method="POST" >
                                 <h2>ชื่อ : <?php echo $fullname ."  ". $lastname;?></h2>
+                                <label for="status">&nbsp;&nbsp;&nbsp;status:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                 <?php
                                     $selectuser = "select * from user where UserID = '" . $userid . "'";
                                     $reql = $db->query($selectuser);
                                     $rowuser = $reql->fetch_assoc(); 
-                                    //echo $rowuser['Name'];
-                                    
+                                    #echo $rowuser['Status'];
                                 ?>
                                     <div class="inputdoc">
                                         <label for="Name">ชื่อ:</label>
-                                        <input type="text" id="Name" name="Name" value="<?php echo $rowuser["Name"]; ?>"><br><br><br>
+                                        <input type="text" id="Name" name="Name" value="<?php echo $rowuser["Name"]; ?>">
                                     </div>
 
                                     <div class="inputdoc">
                                         <label for="Surname">นามสกุล:</label>
-                                        <input type="text" id="Surname" name="Surname" value="<?php echo $rowuser["Surname"]; ?>"><br><br><br>
+                                        <input type="text" id="Surname" name="Surname" value="<?php echo $rowuser["Surname"]; ?>">
                                     </div>
 
                                     <div class="inputdoc">
                                         <label for="Email">Email:</label>
-                                        <input type="text" id="Email" name="Email" value="<?php echo $rowuser["Email"]; ?>"><br><br><br>
+                                        <input type="text" id="Email" name="Email" value="<?php echo $rowuser["Email"]; ?>">
                                     </div>
 
                                     <div class="inputdoc">
                                         <label for="Phone">Phonenumber:</label>
-                                        <input type="text" id="Phone" name="Phone" value="<?php echo $rowuser["Phone"]; ?>"><br><br><br>
+                                        <input type="text" id="Phone" name="Phone" value="<?php echo $rowuser["Phone"]; ?>">
                                     </div>
                                 <?php if($status_user == 'admin')
                                 {?>
@@ -147,7 +140,7 @@ if (!$_SESSION['login']) {
                                 <label class="container">
                                     <input type="radio" name="radio1" value ="user">
                                     <span class="checkmark">user</span>
-                                </label><br><br>
+                                </label><br>
                                 <?php }else{
                                 ?>
                                     <label class="container">
@@ -157,7 +150,7 @@ if (!$_SESSION['login']) {
                                 <label class="container">
                                     <input type="radio" checked="checked" name="radio1" value ="user">
                                     <span class="checkmark">user</span>
-                                </label><br><br>
+                                </label><br>
                                 <?php } ?>
 
 
@@ -183,9 +176,9 @@ if (!$_SESSION['login']) {
                                         $reql2 = $db->query($selectbook);
                                         $rowbook = $reql2->fetch_assoc();
                                         $typebookid = $rowbook["TypeID"];
-                                        print_r($typebookid);
+                                        #print_r($typebookid);
 
-                                        if(in_array($typebookid, $allarr))
+                                        if(in_array($typebookid, $listusetype))
                                         {?>
                                             <input  type="checkbox" id="chk<?php echo $start;?>" name="chk<?php echo $start;?>" value="<?php echo $typebookid ?>" checked="checked">
                                             <label  for="vehicle1"><?php echo $namearr[$start];?></label><br><br>
@@ -195,8 +188,7 @@ if (!$_SESSION['login']) {
                                             <input  type="checkbox" id="chk<?php echo $start;?>" name="chk<?php echo $start;?>" value="<?php echo $typebookid ?>">
                                             <label  for="vehicle1"><?php echo $namearr[$start];?></label><br><br>
                                         <?php }  
-                                        $start += 1;
-                                     }
+                                        $start += 1;}
                                 ?>
                                 <div class="addsub">
                                     <input type="submit" class="submit" name="submit" value="ตกลง">
@@ -204,22 +196,16 @@ if (!$_SESSION['login']) {
                                 </div>  
                         </form>
                         
-                    </div> 
                 </div>
 
 
             </div>
 
-
-
         </div>
-
-
-
 
     </section>
 
-    <footer id="footerAddD">
+    <!-- <footer id="footerAddD">
         <div class="container">
             <div class="footer1">
                 <p>contact</p>
@@ -227,7 +213,7 @@ if (!$_SESSION['login']) {
         </div>
 
 
-    </footer>
+    </footer> -->
 </body>
 
 </html>

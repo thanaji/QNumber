@@ -172,7 +172,7 @@
     display: flex;
     justify-content: center;
     padding: 20px;
-    height: 550px;
+    height: 100%;
     /* width: 600px; */
     border-radius: 10px;
     background: #A6D1A2;
@@ -345,7 +345,6 @@
     margin-top: 10px;
     border-radius: 5px;
     padding: 2px;
-   
 }
 /* user button */
 
@@ -370,6 +369,74 @@
     margin-top: 10px;
     border-radius: 5px;
     padding: 2px; 
+}
+
+/* table */
+
+.table_edit a{
+    color: black;
+    text-decoration: none;
+}
+
+.table_edit .edit:hover{
+    color: green;
+}
+
+.table_edit .delete:hover{
+    color: red;
+}
+
+/* adduser */
+
+#myBtn{
+    margin-top: 20px;
+    float: right;
+    cursor: pointer;
+    color: white;
+    padding: 4px;
+    border-radius: 2px;
+    background: green;
+}
+
+.edit_booktype a{
+    color: black;
+    text-decoration: none;
+}
+
+.edit_booktype a:hover{
+    color: green;
+}
+
+#addcategory{
+    margin-top: 30px;
+    float: right;
+}
+
+/* logout */
+.nav-contact .view{
+   margin-top: 2px;
+    background: tomato;
+    color: white;
+    padding: 2px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+/* edit user */
+#AddDocumentU{
+    height: auto;
+    width: auto;
+    background: #114F2B;
+    background-repeat: no-repeat;
+    
+    background-position: center;
+    background-size: cover;
+}
+
+.frameitemAddU{
+    display: flex;
+    justify-content: center;
+    
+    background-size:cover ; 
 }
 
 
