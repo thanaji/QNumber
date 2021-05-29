@@ -139,7 +139,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
             <thead>
                 <tr>
                      <th>id</th>
-                     <th>Staatus</th>
+                     <th>Status</th>
                      <th>Name</th>
                      <th>Surname</th>
                      <th>Email</th>
@@ -167,15 +167,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                         </td>
                                     </tr>
                                 <?php } ?>
-                
-                
-                
-               
             </tbody>
             <tfoot>
                 <tr>
                 <th>id</th>
-                <th>Staatus</th>
+                <th>Status</th>
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Email</th>
@@ -244,8 +240,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
                     }
                     
                     $nameadd = count($namearr);
-                    #echo $nameadd;
+                    //echo $nameadd;
                     $_SESSION['nameadd'] = $nameadd;
+                    
+                    $nameadd = count($namearr);
                                     
                     $start = 1;
                     while($start < $nameadd)

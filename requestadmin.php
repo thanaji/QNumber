@@ -1,9 +1,24 @@
 <?php
+require("dbConn.php");
 session_start();
+date_default_timezone_set("Asia/Bangkok");
+#print_r($_SESSION);
+$userid = $_SESSION['AD_userid'];
 if (!$_SESSION['login']) {
     header("location: /qnumber/index.php");
     exit;
 }
+$namearr = array('');
+$selectuser = "select Name from type";
+$reql = $db->query($selectuser);
+
+while($row = mysqli_fetch_array($reql)){
+    array_push($namearr,$row['Name']);
+}
+
+$nameadd = count($namearr);
+echo $nameadd;
+$_SESSION['nameadd'] = $nameadd;
 ?>
 
 <!DOCTYPE html>
@@ -65,34 +80,71 @@ if (!$_SESSION['login']) {
 
         <div class="container">
             <div class="frameitemAddD">
-                <div class="itemAddD">
+                <div class="itemAddD">  
+                    <?php
+                        $selecttypeuse = "select TypeUseID from permission where UserID = $userid";
+                        $reqltype = $db->query($selecttypeuse);
+                        $listusetype = array('');
+                        while($rowtypeuse = $reqltype->fetch_assoc()) { 
+                            array_push($listusetype,$rowtypeuse['TypeUseID']);
+                           }
+                        #print_r($listusetype);
+                        $countlist = count($listusetype);
+                        
+                    ?>
 
-
-                    <form action="/action_page.php">
+                    
+                    <form action="insert_document.php" method="POST">
                         <h1>กรอกเอกสาร</h1>
                         <div class="inputdoc">
                             <label for="fname">เลือกประเภท:</label>
-                            <input type="text" id="fname" name="fname">
+
+                            <select name="type_id" required>
+                                <option value="">---------กรุณาเลือกเอกสาร---------</option>
+                                <?php
+                                    $loop = 1; 
+                                    while($loop < $countlist){
+                                        #print_r($listusetype);
+                                        $selecttype = "select * from type where TypeID = '$listusetype[$loop]'";
+                                        $reql = $db->query($selecttype);
+                                        $rowtype = $reql->fetch_assoc();
+                                        $namebook = $rowtype['Name'];
+                                        print_r($namebook);
+                                ?>
+                                    <option name = "drop<?php echo $loop ?>" value="<?php echo $listusetype[$loop] ?>"><?php print_r($namebook); ?></option>
+                                <?php 
+                                $loop +=1;
+                                }?>
+                                
+                            </select>
+                            
                         </div>
                         <div class="inputdoc">
                             <label for="fname">ลงวันที่:&nbsp;&nbsp;&nbsp;</label>
-                            <input type="text" id="fname" name="fname">
+                            <?php
+                            
+                            $date_d=date("d-m"); // วัน เดือน
+                            $date_y=(date("Y")+543); // ปี
+                            $date_t=date("H:i:s"); // เวลา
+                            echo "<input type='text' name='date' value='$date_d-$date_y' required>";
+                            ?>
+                            
                         </div>
                         <div class="inputdoc">
                             <label for="fname">จาก:</label>
-                            <input type="text" id="fname" name="fname">
+                            <input type="text"  name="send" required>
                         </div>
                         <div class="inputdoc">
                             <label for="fname">ถึง:</label>
-                            <input type="text" id="fname" name="fname">
+                            <input type="text"  name="to" required>
                         </div>
                         <div class="inputdoc">
                             <label for="fname">เรื่อง:</label>
-                            <input type="text" id="fname" name="fname">
+                            <input type="text"  name="story" required>
                         </div>
                         <div class="inputdoc">
                             <label for="fname">เบอร์:</label>
-                            <input type="text" id="fname" name="fname">
+                            <input type="text"  name="phone" required>
                         </div>
 
                         <div class="addpdf">
@@ -102,10 +154,9 @@ if (!$_SESSION['login']) {
 
 
                         <div class="addsub">
-                            <a href="#" class="submit">ตกลง</a>
-                            <a href="#" class="cancel">ยกเลิก</a>
-
-                        </div>
+                            <input type="submit" class="submit" name="submit" value="ตกลง">
+                            <a href="insert_document.php" class="cancel">ยกเลิก</a>
+                        </div>  
 
 
 
