@@ -3,6 +3,8 @@ require("dbConn.php");
 session_start();
 date_default_timezone_set("Asia/Bangkok");
 #print_r($_SESSION);
+$docid = $_GET["docid"];
+
 $userid = $_SESSION['AD_userid'];
 if (!$_SESSION['login']) {
     header("location: /qnumber/index.php");
@@ -96,30 +98,10 @@ $_SESSION['nameadd'] = $nameadd;
                     ?>
 
 
-                    <form action="insert_document.php" method="POST">
+                    <form action="update_document.php?docid=<?php echo $docid;?>" method="POST">
                         <h1>แก้ไขเอกสาร</h1>
                         <div class="inputdoc">
                             <label for="fname">เลือกประเภท:</label>
-
-                            <select name="type_id" required>
-                                <option value="">---------กรุณาเลือกเอกสาร---------</option>
-                                <?php
-                                $loop = 1;
-                                while ($loop < $countlist) {
-                                    #print_r($listusetype);
-                                    $selecttype = "select * from type where TypeID = '$listusetype[$loop]'";
-                                    $reql = $db->query($selecttype);
-                                    $rowtype = $reql->fetch_assoc();
-                                    $namebook = $rowtype['Name'];
-                                    print_r($namebook);
-                                ?>
-                                    <option name="drop<?php echo $loop ?>" value="<?php echo $listusetype[$loop] ?>"><?php print_r($namebook); ?></option>
-                                <?php
-                                    $loop += 1;
-                                } ?>
-
-                            </select>
-
                         </div>
 
                         <?php
@@ -139,35 +121,31 @@ $_SESSION['nameadd'] = $nameadd;
                             <label for="fname">ลงวันที่:</label>
                             <input type="text" name="date" value="<?php echo $rowdoc["Date"]; ?>">
                         </div>
+
                         <div class="inputdoc">
                             <label for="fname">จาก:</label>
                             <input type="text" name="send" value="<?php echo $rowdoc["Sent_Name"]; ?>">
                         </div>
+
                         <div class="inputdoc">
                             <label for="fname">ถึง:</label>
                             <input type="text" name="to" value="<?php echo $rowdoc["Receive_Name"]; ?>">
                         </div>
+
                         <div class="inputdoc">
                             <label for="fname">เรื่อง:</label>
                             <input type="text" name="story" value="<?php echo $rowdoc["Text"]; ?>">
                         </div>
+
                         <div class="inputdoc">
                             <label for="fname">เบอร์:</label>
                             <input type="text" name="phone" value="<?php echo $rowdoc["Phone"]; ?>">
                         </div>
 
-                        <div class="addpdf">
-                            <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;เอกสาร.pdf</a>
-                            <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แนบไฟล์.pdf</a>
-                        </div>
-
-
                         <div class="addsub">
                             <input type="submit" class="submit" name="submit" value="ตกลง">
-                            <a href="insert_document.php" class="cancel">ยกเลิก</a>
+                            <a href="home.php" class="cancel">ยกเลิก</a>
                         </div>
-
-
 
                     </form>
 

@@ -17,7 +17,7 @@ while($row = mysqli_fetch_array($reql)){
 }
 
 $nameadd = count($namearr);
-echo $nameadd;
+#echo $nameadd;
 $_SESSION['nameadd'] = $nameadd;
 ?>
 
@@ -94,7 +94,7 @@ $_SESSION['nameadd'] = $nameadd;
                     ?>
 
                     
-                    <form action="insert_document.php" method="POST">
+                    <form action="insert_document.php" method="POST" enctype="multipart/form-data">
                         <h1>กรอกเอกสาร</h1>
                         <div class="inputdoc">
                             <label for="fname">เลือกประเภท:</label>
@@ -109,7 +109,7 @@ $_SESSION['nameadd'] = $nameadd;
                                         $reql = $db->query($selecttype);
                                         $rowtype = $reql->fetch_assoc();
                                         $namebook = $rowtype['Name'];
-                                        print_r($namebook);
+                                        #print_r($namebook);
                                 ?>
                                     <option name = "drop<?php echo $loop ?>" value="<?php echo $listusetype[$loop] ?>"><?php print_r($namebook); ?></option>
                                 <?php 
@@ -147,11 +147,9 @@ $_SESSION['nameadd'] = $nameadd;
                             <input type="text"  name="phone" required>
                         </div>
 
-                        <div class="addpdf">
-                            <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;เอกสาร.pdf</a>
-                            <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แนบไฟล์.pdf</a>
+                        <div>
+                            <input type="file" name="fileUpload"><br>
                         </div>
-
 
                         <div class="addsub">
                             <input type="submit" class="submit" name="submit" value="ตกลง">

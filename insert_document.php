@@ -5,7 +5,13 @@ date_default_timezone_set("Asia/Bangkok");
 print_r($_SESSION);
 $nameadd = $_SESSION['nameadd'];
 if(isset($_POST['submit']))
-{	
+{
+    $namepdf ="";
+    if(isset($_FILES["fileUpload"]["name"]))
+    {
+        $namepdf = $_FILES["fileUpload"]["name"];
+    }    
+
     if(isset($_POST['type_id']))
     {
         $dropdown = $_POST['type_id'];
@@ -21,11 +27,7 @@ if(isset($_POST['submit']))
     $time = date('Y-m-d H:i:s',strtotime($_POST['date']));
     $userid = $_SESSION['AD_userid'];
 
-    $filee = "...";
-    #print_r($time);
-    #print_r($dropdown);
-    
-    #echo "$dropdown.'()'.$userid.'()'.$sead.'()'.$to.'()'.story.'()'.$filee";
+    $filee = $namepdf;
     $resultNumber = 1;
 
     $selecttype = "select current_number from type where TypeID = '$dropdown'";
@@ -45,7 +47,6 @@ if(isset($_POST['submit']))
     if ($reql = $db->query($updatetype)) {
         echo "Record updated successfully<br>";
     }
-    #header("location: manage_user.php");
 
     
 
@@ -53,5 +54,6 @@ if(isset($_POST['submit']))
 }
 
 mysqli_close($db); // Close connection
+header("location: manage_user.php");
 
 ?>
