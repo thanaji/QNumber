@@ -7,11 +7,13 @@ $nameadd = $_SESSION['nameadd'];
 if(isset($_POST['submit']))
 {
     $namepdf ="";
-    if(isset($_FILES["fileUpload"]["name"]))
+    $typefile = $_FILES["fileUpload"]["type"];
+    if($_FILES['fileUpload']['size'] != 0)
     {
         $namepdf = $_FILES["fileUpload"]["name"];
     }    
 
+    print_r($typefile);
     if(isset($_POST['type_id']))
     {
         $dropdown = $_POST['type_id'];
@@ -21,7 +23,7 @@ if(isset($_POST['submit']))
     $sead = $_POST['send'];
     $to = $_POST['to'];
     $story = $_POST['story'];
-    $phone = $_POST['phone'];
+    
     $date = $_POST['date'];
 
     $time = date('Y-m-d H:i:s',strtotime($_POST['date']));
@@ -34,26 +36,52 @@ if(isset($_POST['submit']))
     $reql = $db->query($selecttype);
     $rowtype = $reql->fetch_assoc();
     $resultNumber = $rowtype['current_number'] + 1;
-    print_r($resultNumber);
-    
     $checky = date('Y')+543; #เช็คปี -----------
-    print_r($checky);
 
 
-    $insert = mysqli_query($db,"INSERT INTO `document`(`TypeID`,`UserID`,`Date`,`resultNumber`,`Sent_Name`,`Receive_Name`,`Text`,`Phone`,`Filee`,`Status`) VALUES ('$dropdown','$userid' ,'$time','$resultNumber','$sead','$to','$story','$phone','$filee','1')");
+    if($_FILES['fileUpload']['size'] != 0 and $typefile == 'application/pdf')
+    {
+        $insert = mysqli_query($db,"INSERT INTO `document`(`TypeID`,`UserID`,`Date`,`resultNumber`,`Sent_Name`,`Receive_Name`,`Text`,`Filee`,`Status`) VALUES ('$dropdown','$userid' ,'$time','$resultNumber','$sead','$to','$story','$filee','1')");
+        $namearr = array('');
+        $selectdoc = "select MAX(DocumentID) from document where Sent_Name = '$sead' AND TypeID = '$dropdown'";
+        $reql = $db->query($selectdoc);
+        $rowdoc = $reql->fetch_assoc();
+        $newnamefile = $rowdoc['MAX(DocumentID)'];
+        $updatefile = "update document set Filee = '$newnamefile.pdf'  where DocumentID = '$newnamefile'"; 
+        if ($reql = $db->query($updatefile)) {
+            echo " updated file name successfully<br>";
+        }   
 
-    $updatetype = "update type  set current_number = '$resultNumber' where TypeID = '$dropdown' AND current_year = '$checky'"; #---------------
+        $destination = 'uploads/' .$rowdoc['MAX(DocumentID)'].'.pdf';
+        $extension = pathinfo($namepdf, PATHINFO_EXTENSION);
+        $size = $_FILES['fileUpload']['size'];
+        $file = $_FILES['fileUpload']['tmp_name'];
+        if (!in_array($extension, ['pdf', 'docx'])) {
+            echo "You file extension must be .zip, .pdf or .docx";
+        } elseif ($_FILES['fileUpload']['size'] > 1000000) { // file shouldn't be larger than 1Megabyte
+            echo "File too large!";
+        } else {
+            if (move_uploaded_file($file, $destination)) {
+                    echo "File uploaded successfully";
+                }
+            else {
+                echo "Failed to upload file.";
+            }
+        }
+    }else{
+        $insert = mysqli_query($db,"INSERT INTO `document`(`TypeID`,`UserID`,`Date`,`resultNumber`,`Sent_Name`,`Receive_Name`,`Text`,`Status`) VALUES ('$dropdown','$userid' ,'$time','$resultNumber','$sead','$to','$story','1')");
+    }
 
+    $updatetype = "update type  set current_number = '$resultNumber' where TypeID = '$dropdown' AND current_year = '$checky'"; 
     if ($reql = $db->query($updatetype)) {
         echo "Record updated successfully<br>";
     }
 
-    
 
 
-}
+
 
 mysqli_close($db); // Close connection
-header("location: manage_user.php");
-
+header("location: home.php");
+}
 ?>

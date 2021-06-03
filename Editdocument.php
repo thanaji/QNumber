@@ -20,9 +20,22 @@ while ($row = mysqli_fetch_array($reql)) {
 
 $nameadd = count($namearr);
 
+
 $docid = $_GET["docid"];
 //echo $nameadd;
 $_SESSION['nameadd'] = $nameadd;
+
+$selectresult = "select resultNumber from document where DocumentID='$docid'";
+$reql = $db->query($selectresult);
+$row = mysqli_fetch_array($reql);
+$resultnum = $row['resultNumber'];
+
+$selectnumbook = "select document.TypeID,type.TypeID,type.TypeNumber from type JOIN document ON type.TypeID = document.TypeID WHERE document.DocumentID = '$docid'";
+$reql = $db->query($selectnumbook);
+$row = mysqli_fetch_array($reql);
+$typenum = $row['TypeNumber'];
+
+#print_r($typenum);
 ?>
 
 <!DOCTYPE html>
@@ -98,10 +111,11 @@ $_SESSION['nameadd'] = $nameadd;
                     ?>
 
 
-                    <form action="update_document.php?docid=<?php echo $docid;?>" method="POST">
+                    <form action="update_document.php?docid=<?php echo $docid;?>" method="POST" enctype="multipart/form-data">
                         <h1>แก้ไขเอกสาร</h1>
                         <div class="inputdoc">
-                            <label for="fname">เลือกประเภท:</label>
+                            <label for="fname">เลข อว. : </label>
+                            <label for="fname">6503.<?php echo $typenum ?>/<?php echo $resultnum ?></label>
                         </div>
 
                         <?php
@@ -137,9 +151,8 @@ $_SESSION['nameadd'] = $nameadd;
                             <input type="text" name="story" value="<?php echo $rowdoc["Text"]; ?>">
                         </div>
 
-                        <div class="inputdoc">
-                            <label for="fname">เบอร์:</label>
-                            <input type="text" name="phone" value="<?php echo $rowdoc["Phone"]; ?>">
+                        <div>
+                            <input type="file" name="fileUpload"><br>
                         </div>
 
                         <div class="addsub">

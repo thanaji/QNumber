@@ -142,10 +142,6 @@ $_SESSION['nameadd'] = $nameadd;
                             <label for="fname">เรื่อง:</label>
                             <input type="text"  name="story" required>
                         </div>
-                        <div class="inputdoc">
-                            <label for="fname">เบอร์:</label>
-                            <input type="text"  name="phone" required>
-                        </div>
 
                         <div>
                             <input type="file" name="fileUpload"><br>

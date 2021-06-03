@@ -6,6 +6,7 @@ if (!$_SESSION['login']) {
     header("location: /qnumber/index.php");
     exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,123 +16,32 @@ if (!$_SESSION['login']) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Document</title>
+    <title>Home</title>
+    <!-- BootStrap 5 By B ขีดกลางtext -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
+    <!-- -- -- -- -- -- -->
+
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
         }
-
-        /* The Modal (background) */
-        .modal {
-            display: none;
-            /* Hidden by default */
-            position: fixed;
-            /* Stay in place */
-            z-index: 1;
-            /* Sit on top */
-            padding-top: 100px;
-            /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%;
-            /* Full width */
-            height: 100%;
-            /* Full height */
-            overflow: auto;
-            /* Enable scroll if needed */
-            background-color: rgb(0, 0, 0);
-            /* Fallback color */
-            background-color: rgba(0, 0, 0, 0.4);
-            /* Black w/ opacity */
-        }
-
-        /* Modal Content */
-        .modal-content {
-            position: relative;
-            background-color: #fefefe;
-            margin: auto;
-            padding: 0;
-            border: 1px solid #888;
-            width: 80%;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            -webkit-animation-name: animatetop;
-            -webkit-animation-duration: 0.4s;
-            animation-name: animatetop;
-            animation-duration: 0.4s
-        }
-
-        /* Add Animation */
-        @-webkit-keyframes animatetop {
-            from {
-                top: -300px;
-                opacity: 0
-            }
-
-            to {
-                top: 0;
-                opacity: 1
-            }
-        }
-
-        @keyframes animatetop {
-            from {
-                top: -300px;
-                opacity: 0
-            }
-
-            to {
-                top: 0;
-                opacity: 1
-            }
-        }
-
-        /* The Close Button */
-        .close {
-            color: white;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-header {
-            padding: 2px 16px;
-            background-color: #5cb85c;
-            color: white;
-        }
-
-        .modal-body {
-            padding: 2px 16px;
-        }
-
-        .modal-footer {
-            padding: 2px 16px;
-            background-color: #5cb85c;
-            color: white;
-        }
     </style>
 
 </head>
 
 <body>
+    <!-- Nav Zone -->
     <nav>
         <div class="container">
             <div class="nav-top">
                 <div class="tital-logo">
                     <h1>KASETSART UNIVERSITY</h1>
                 </div>
-
                 <div class="nav-contact">
                     <p>
                         <?php
@@ -141,7 +51,6 @@ if (!$_SESSION['login']) {
                         <a href="logout.php" class="view">Logout</a>
                     </p>
                 </div>
-
             </div>
 
             <div class="nav-buttom">
@@ -159,142 +68,120 @@ if (!$_SESSION['login']) {
                 <li><a href="activity.php">ดูประวัติทั้งหมด</a></li>
                 <li><a href="Booktype.php">ประเภทเอกสาร</a></li>
                 <li><a href="manage_user.php">จัดการ user</a></li>
-
             </div>
-
         </div>
     </nav>
+
+    <!-- Section Zone -->
     <section id="tour">
         <div class="container mb-3 mt-3">
             <h1>Home</h1>
+            <!-- <del>Strikethrough</del> ขีดเส้นกลาง -->
+            <!-- <p class="text-decoration-line-through">This text has a line going through it.</p> ขีดเส้นกลาง -->
+
+            <!-- Table Zone -->
             <table class="table table-striped table-bordered mydatatable" style="width:100%">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>เลขอว.</th>
-                        <th>ชื่อผู้ส่ง</th>
                         <th>วันที่</th>
+                        <th>เลขเอกสาร</th>
                         <th>ชื่อผู้รับ</th>
+                        <th>ชื่อผู้ส่ง</th>
                         <th>เรื่อง</th>
                         <th>สถานะ</th>
-                        <th>เเก้ไขเเละยกเลิก</th>
+                        <th></th>
                     </tr>
                 </thead>
+
                 <tbody>
+                    <!-- ดึงข้อมูลจากDB document * -->
                     <?php
                     $selectdoc = "select * from document ";
                     $reql = $db->query($selectdoc);
-
                     while ($rowdoc = $reql->fetch_assoc()) {
                     ?>
                         <tr>
-                            <td><?php echo $rowdoc["DocumentID"]; ?></td>
-                            <td><?php echo $rowdoc["resultNumber"]; ?></td>
-                            <td><?php echo $rowdoc["Sent_Name"]; ?></td>
                             <td><?php echo $rowdoc["Date"]; ?></td>
+                            <!-- เลขเอกสาร +ต่อกัน -->
+                            <td>
+                                <?php
+                                $docids = $rowdoc["DocumentID"];
+                                $selectnumbook = "select document.TypeID,type.TypeID,type.TypeNumber from type JOIN document ON type.TypeID = document.TypeID WHERE document.DocumentID = '$docids'";
+                                $reql2 = $db->query($selectnumbook);
+                                $row2 = mysqli_fetch_array($reql2);
+                                $typenum = $row2['TypeNumber'];
+                                echo 'อว.6503' . $typenum . '/' . $rowdoc["resultNumber"];
+                                ?>
+                            </td>
                             <td><?php echo $rowdoc["Receive_Name"]; ?></td>
+                            <td><?php echo $rowdoc["Sent_Name"]; ?></td>
                             <td><?php echo $rowdoc["Text"]; ?></td>
-                            <td><?php echo $rowdoc["Status"]; ?></td>
+                            <td><?php if ($rowdoc["Status"] == 0) {
+                                    echo "<p class='text-danger'>ยกเลิก</p>";
+                                } else {
+                                    echo $rowdoc["Status"];
+                                }
+                                ?></td>
+
+                            <!-- ปุ่ม view, edit, cancel -->
                             <td class="table_edit">
-                                <a id="myBtn" href="#myModal?docid=<?php $_SESSION['docid'] = $rowdoc["DocumentID"];
-                                                                    echo $_SESSION['docid']; ?>">ดูรายละเอียด</a>
-                                <a class="edit" href="Editdocument.php?docid=<?php echo $rowdoc["DocumentID"]; ?>">แก้ไข&nbsp;&nbsp;&nbsp;</a>
-                                <a class="delete" href="cancel_document.php?docid=<?php echo $rowdoc["DocumentID"]; ?>" onclick="return confirm('คุณต้องการที่จะยกเลิกข้อมูลนี้หรือไม่?');">ยกเลิก</a>
+                                <a href="#" class="btn btn-info view-detail" data-id="<?php echo $rowdoc["DocumentID"]; ?>" data-num="<?php echo 'อว.6503' . $typenum . '/' . $rowdoc["resultNumber"]; ?>" data-sentname="<?php echo $rowdoc["Sent_Name"]; ?>" data-resvname="<?php echo $rowdoc["Receive_Name"]; ?>" data-text="<?php echo $rowdoc["Text"]; ?>" data-status="<?php echo $rowdoc["Status"]; ?>">
+                                    view
+                                </a>
+                                <a type="button" class="btn btn-success" href="Editdocument.php?docid=<?php echo $rowdoc["DocumentID"]; ?>">edit</a>
+                                <a type="button" class="btn btn-danger" href="cancel_document.php?docid=<?php echo $rowdoc["DocumentID"]; ?>" onclick="return confirm('คุณต้องการที่จะยกเลิกข้อมูลนี้หรือไม่?');">cancel</a>
                             </td>
                         </tr>
                     <?php } ?>
-
-
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>#</th>
-                        <th>เลขอว.</th>
-                        <th>ชื่อผู้ส่ง</th>
                         <th>วันที่</th>
+                        <th>เลขเอกสาร</th>
                         <th>ชื่อผู้รับ</th>
+                        <th>ชื่อผู้ส่ง</th>
                         <th>เรื่อง</th>
                         <th>สถานะ</th>
-                        <th>เเก้ไขเเละยกเลิก</th>
+                        <th></th>
                     </tr>
                 </tfoot>
             </table>
-
         </div>
     </section>
 
+    <!-- Modal Zone -->
+    <div class="modal fade" id="view-detailModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" name="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id" value="">
 
-    <!-- Trigger/Open The Modal -->
+                    <label for="num">เลขเอกสาร</label>
+                    <input type="text" name="num" id="num"><br>
 
+                    <label for="sentname">ชื่อผู้ส่ง</label>
+                    <input type="text" name="sentname" id="sentname"><br>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
+                    <label for="resvname">ชื่อผู้รับ</label>
+                    <input type="text" name="resvname" id="resvname"><br>
 
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>รายละเอียดเอกสาร</h2>
-                <span class="close">&times;</span>
+                    <label for="text">เรื่อง</label>
+                    <input type="text" name="text" id="text"><br>
 
-            </div>
-            <div class="modal-body">
-                <?php
-                $docid = $_SESSION['docid'];
+                    <label for="status">สถานะ</label>
+                    <input type="text" name="status" id="status"><br>
+                </div>
+                <div class="modal-footer">
 
-                $selectdoc2 = "select * from document where DocumentID = '" . $docid . "'";
-                $reql = $db->query($selectdoc2);
-                $rowdoc2 = $reql->fetch_assoc();
-
-                ?>
-                <label for="tinput">เลขเอกสาร:</label>
-                <label for="showdoc">อว.<?php echo $rowdoc2["resultNumber"]; ?></label><br><br>
-                
-                <!-- <p class="text-muted"><?php echo $rowdoc2["Date"]; ?></p><br><br> -->
-                <label for="tinput">วันที่:</label>
-                <label for="showdoc"><?php echo $rowdoc2["Date"]; ?></label><br><br>
-                <label for="tinput">ชื่อผู้ส่ง:</label>
-                <label for="showdoc"><?php echo $rowdoc2["Sent_Name"]; ?></label><br><br>
-                <label for="tinput">ชื่อผู้รับ:</label>
-                <label for="showdoc"><?php echo $rowdoc2["Receive_Name"]; ?></label><br><br>
-                <label for="tinput">เรื่อง:</label>
-                <label for="showdoc"><?php echo $rowdoc2["Text"]; ?></label><br><br>
-                <label for="tinput">เบอร์โทร:</label>
-                <label for="showdoc"><?php echo $rowdoc2["Phone"]; ?></label><br><br>
-                <label for="tinput">แนบไฟล์:</label>
-                <label for="showdoc"><?php echo $rowdoc2["Filee"]; ?></label><br><br>
+                </div>
             </div>
         </div>
-
     </div>
-
-    <script>
-        // Get the modal
-        var modal = document.getElementById("myModal");
-
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal 
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-
 
 
 
@@ -307,6 +194,7 @@ if (!$_SESSION['login']) {
     <script>
         $('.mydatatable').DataTable();
     </script>
+    <script type="text/javascript" src="viewmodal.js"></script>
 
 </body>
 

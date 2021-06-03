@@ -28,7 +28,7 @@ $email = $_SESSION['user_email_address'];
             $_SESSION['AD_status'] = $row["Status"];
             echo "<script>";
             echo "alert('ยินดีต้อนรับ Admin คุณ $name');"; 
-            echo "window.location.href = 'requestadmin.php';";
+            echo "window.location.href = 'home.php';";
             echo "</script>"; 
         }
     }else{

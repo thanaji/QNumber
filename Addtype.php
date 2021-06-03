@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set("Asia/Bangkok");
 if (!$_SESSION['login']) {
     header("location: /qnumber/index.php");
     exit;
@@ -68,26 +69,21 @@ if (!$_SESSION['login']) {
                     <form action="saveaddtype.php" method="POST" enctype="multipart/form-data">
                         <h1>เพิ่มประเภทเอกสาร</h1> <br>
                         <div class="inputdoc">
-                            <label for="fname">ชื่อประเภท:</label>
+                            <label for="name">ชื่อประเภท:</label>
                             <input type="text" id="name" name="name" required><br><br><br>
                         </div>
                         <div class="inputdoc">
-                            <label for="fname">เลข อว:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <label for="num">เลข อว:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                             <input type="text" id="num" name="num" required><br><br><br>
                         </div>
                         <div class="inputdoc">
-                            <label for="fname">เลขเริ่มต้น:</label>
-                            <input type="text" id="startnum" name="startnum" required><br><br><br>
+                            <label for="startnum">เลขเริ่มต้น:</label>
+                            <input type="text" id="startnum" name="startnum" value="0" required><br><br><br>
                         </div>
                         <div class="inputdoc">
-                            <label for="fname">ปีปัจจุบัน:&nbsp;&nbsp;</label>
+                            <label for="year">ปีปัจจุบัน:&nbsp;&nbsp;</label>
                             <input type="text" id="year" name="year" required><br><br><br>
                         </div>
-
-                        <!-- เพิ่มประเภทไม่ต้องมี upload file -->
-                        <!-- <div>
-                            <input type="file" name="fileupload" id="file"><br>
-                        </div> -->
 
                         <div class="addsub">
                             <input type="submit" class="submit" name="submit" value="ตกลง">
