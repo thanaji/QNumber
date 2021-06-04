@@ -91,7 +91,7 @@ if (!$_SESSION['login']) {
 
                         <div class="inputdoc">
                             <label for="current_number">เลขเริ่มต้น:</label>
-                            <input type="text" id="current_number" name="current_number" value="<?php echo $rowuser['current_number']; ?>"><br><br><br>
+                            <input type="number " id="current_number" name="current_number" value="<?php echo $rowuser['current_number']; ?>"><br><br><br>
                         </div>
 
                         <div class="inputdoc">

@@ -124,7 +124,7 @@ if (!$_SESSION['login']) {
 
                                     <div class="inputdoc">
                                         <label for="Email">Email:</label>
-                                        <input type="text" id="Email" name="Email" value="<?php echo $rowuser["Email"]; ?>">
+                                        <input type="email" id="Email" name="Email" value="<?php echo $rowuser["Email"]; ?>">
                                     </div>
 
                                     <div class="inputdoc">

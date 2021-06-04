@@ -171,7 +171,7 @@ if (!$_SESSION['login']) {
                     <input type="text" name="resvname" id="resvname"><br>
 
                     <label for="text">เรื่อง</label>
-                    <input type="text" name="text" id="text"><br>
+                    <input type="text" name="text" id="text" ><br>
 
                     <label for="status">สถานะ</label>
                     <input type="text" name="status" id="status"><br>

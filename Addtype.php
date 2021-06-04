@@ -1,6 +1,7 @@
 <?php
 session_start();
 date_default_timezone_set("Asia/Bangkok");
+$date_y=(date("Y")+543);
 if (!$_SESSION['login']) {
     header("location: /qnumber/index.php");
     exit;
@@ -74,15 +75,15 @@ if (!$_SESSION['login']) {
                         </div>
                         <div class="inputdoc">
                             <label for="num">เลข อว:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                            <input type="text" id="num" name="num" required><br><br><br>
+                            <input type="text" id="num" name="num" placeholder=".xxx" required><br><br><br>
                         </div>
                         <div class="inputdoc">
                             <label for="startnum">เลขเริ่มต้น:</label>
-                            <input type="text" id="startnum" name="startnum" value="0" required><br><br><br>
+                            <input type="number" id="startnum" name="startnum" value="0" required> <br><br><br>
                         </div>
                         <div class="inputdoc">
                             <label for="year">ปีปัจจุบัน:&nbsp;&nbsp;</label>
-                            <input type="text" id="year" name="year" required><br><br><br>
+                            <input type="text" id="year" name="year" placeholder="โปรดใส่ปี พ.ศ. ปัจจุบัน" value="<?php echo $date_y ?>" required><br><br><br>
                         </div>
 
                         <div class="addsub">

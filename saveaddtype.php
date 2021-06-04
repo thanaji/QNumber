@@ -16,7 +16,10 @@ if(isset($_POST['submit']))
     }
     else
     {
-        echo "Records added successfully.";
+        echo "<script>";
+        echo "alert('เพิ่มประเภทเรียบร้อยแล้ว');"; 
+        echo "window.location.href = 'Booktype.php';";
+        echo "</script>";
     }
 }
 

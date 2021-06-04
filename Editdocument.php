@@ -115,7 +115,7 @@ $typenum = $row['TypeNumber'];
                         <h1>แก้ไขเอกสาร</h1>
                         <div class="inputdoc">
                             <label for="fname">เลข อว. : </label>
-                            <label for="fname">6503.<?php echo $typenum ?>/<?php echo $resultnum ?></label>
+                            <label for="fname">6503<?php echo $typenum ?>/<?php echo $resultnum ?></label>
                         </div>
 
                         <?php

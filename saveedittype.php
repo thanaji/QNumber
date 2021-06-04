@@ -42,7 +42,7 @@ if (!$_SESSION['login']) {
 
         }else{
            echo "<script>";
-            echo "alert('มีชื่อผู้ใช้งานนี้ในระบบแล้ว');"; 
+            echo "alert('มีชื่อนี้ในระบบแล้ว');"; 
             echo "window.history.back()";
             echo "</script>";
 

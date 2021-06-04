@@ -79,9 +79,8 @@ if (!$_SESSION['login']) {
         <table class="table table-striped table-bordered mydatatable" style="width:100%">
             <thead>
                 <tr>
-                <th>#</th>
                 <th>เลข</th>
-                <th>Name</th>
+                <th>name</th>
                 <th>num</th>
                 <th>year</th>
                 <th>edit</th>
@@ -95,7 +94,6 @@ if (!$_SESSION['login']) {
                                 while ($rowuser = $reql->fetch_assoc()) {
                                 ?>
                                     <tr>
-                                        <td><?php echo $rowuser["TypeID"]; ?></td>
                                         <td><?php echo $rowuser["TypeNumber"]; ?></td>
                                         <td><?php echo $rowuser["Name"]; ?></td>
                                         <td><?php echo $rowuser["current_number"]; ?></td>
@@ -110,7 +108,6 @@ if (!$_SESSION['login']) {
             </tbody>
             <tfoot>
                 <tr>
-                <th>#</th>
                 <th>เลข</th>
                 <th>Name</th>
                 <th>num</th>
