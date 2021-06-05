@@ -5,7 +5,7 @@ if($_SESSION["AD_userid"]=="" || $_SESSION["AD_name"]=="" || $_SESSION["AD_email
   header("location: index.php");  
 }else{
     $docid = $_GET["docid"];
-
+    
     if($docid!=""){
         $cancelsql = "update document set 
         Status = '0'

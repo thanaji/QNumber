@@ -99,41 +99,117 @@ if (!$_SESSION['login']) {
                     $selectdoc = "select * from document ";
                     $reql = $db->query($selectdoc);
                     while ($rowdoc = $reql->fetch_assoc()) {
-                    ?>
-                        <tr>
-                            <td><?php echo $rowdoc["Date"]; ?></td>
-                            <!-- เลขเอกสาร +ต่อกัน -->
-                            <td>
-                                <?php
-                                $docids = $rowdoc["DocumentID"];
-                                $selectnumbook = "select document.TypeID,type.TypeID,type.TypeNumber from type JOIN document ON type.TypeID = document.TypeID WHERE document.DocumentID = '$docids'";
-                                $reql2 = $db->query($selectnumbook);
-                                $row2 = mysqli_fetch_array($reql2);
-                                $typenum = $row2['TypeNumber'];
-                                echo 'อว.6503' . $typenum . '/' . $rowdoc["resultNumber"];
-                                ?>
-                            </td>
-                            <td><?php echo $rowdoc["Receive_Name"]; ?></td>
-                            <td><?php echo $rowdoc["Sent_Name"]; ?></td>
-                            <td><?php echo $rowdoc["Text"]; ?></td>
-                            <td><?php if ($rowdoc["Status"] == 0) {
-                                    echo "<p class='text-danger'>ยกเลิก</p>";
-                                } else {
-                                    echo $rowdoc["Status"];
-                                }
-                                ?></td>
 
-                            <!-- ปุ่ม view, edit, cancel -->
-                            <td class="table_edit">
-                                <a href="#" class="btn btn-info view-detail" data-id="<?php echo $rowdoc["DocumentID"]; ?>" data-num="<?php echo 'อว.6503' . $typenum . '/' . $rowdoc["resultNumber"]; ?>" data-sentname="<?php echo $rowdoc["Sent_Name"]; ?>" data-resvname="<?php echo $rowdoc["Receive_Name"]; ?>" data-text="<?php echo $rowdoc["Text"]; ?>" data-status="<?php echo $rowdoc["Status"]; ?>">
-                                    view
-                                </a>
-                                <a type="button" class="btn btn-success" href="Editdocument.php?docid=<?php echo $rowdoc["DocumentID"]; ?>">edit</a>
-                                <a type="button" class="btn btn-danger" href="cancel_document.php?docid=<?php echo $rowdoc["DocumentID"]; ?>" onclick="return confirm('คุณต้องการที่จะยกเลิกข้อมูลนี้หรือไม่?');">cancel</a>
-                            </td>
-                        </tr>
-                    <?php } ?>
+                        if ($rowdoc["Status"] == 0) {
+                            echo "<tr>
+                            <td>
+                            <p class='text-danger'><del>{$rowdoc["Date"]}</del>
+                            </td>";
+
+                            $docids = $rowdoc["DocumentID"];
+                            $selectnumbook = "select document.TypeID,type.TypeID,type.TypeNumber from type JOIN document ON type.TypeID = document.TypeID WHERE document.DocumentID = '$docids'";
+                            $reql2 = $db->query($selectnumbook);
+                            $row2 = mysqli_fetch_array($reql2);
+                            $typenum = $row2['TypeNumber'];
+                            echo '<td><p class=\'text-danger\'><del>อว.6503' . $typenum . '/' . $rowdoc["resultNumber"] . '</del></td>';
+
+                            echo "<td>
+                            <p class='text-danger'><del>{$rowdoc["Receive_Name"]}</del>
+                            </td>";
+
+                            echo "<td>
+                            <p class='text-danger'><del>{$rowdoc["Sent_Name"]}</del>
+                            </td>";
+
+                            echo "<td>
+                            <p class='text-danger'><del>{$rowdoc["Text"]}</del>
+                            </td>";
+
+
+                            echo "<td>
+                                <p class='text-danger'>ยกเลิกแล้ว</p>
+                            </td> 
+                            ";
+
+                            echo "<td class='table_edit'>
+                            
+                            <a href='#' class='btn btn-info view-detail' data-id='{$rowdoc["DocumentID"]}' data-num=\"อว.6503{$typenum}/{$rowdoc["resultNumber"]}\" 
+                            data-sentname='{$rowdoc["Sent_Name"]}' data-resvname='{$rowdoc["Receive_Name"]}' data-text='{$rowdoc["Text"]}' data-status='{$rowdoc["Status"]}'>
+                                view
+                            </a>
+                        </td>
+                    </tr>";
+                        } else {
+
+
+                    ?>
+                            <tr>
+                                <td>
+                                    <?php echo $rowdoc["Date"]; ?>
+                                </td>
+
+
+                                <td>
+                                    <!-- เลขเอกสาร +ต่อกัน -->
+
+                                    <?php
+                                    $docids = $rowdoc["DocumentID"];
+                                    $selectnumbook = "select document.TypeID,type.TypeID,type.TypeNumber from type JOIN document ON type.TypeID = document.TypeID WHERE document.DocumentID = '$docids'";
+                                    $reql2 = $db->query($selectnumbook);
+                                    $row2 = mysqli_fetch_array($reql2);
+                                    $typenum = $row2['TypeNumber'];
+                                    echo 'อว.6503' . $typenum . '/' . $rowdoc["resultNumber"];
+                                    ?>
+
+                                </td>
+
+                                <td>
+                                    <?php echo $rowdoc["Receive_Name"]; ?>
+                                </td>
+
+                                <td>
+                                    <?php echo $rowdoc["Sent_Name"]; ?>
+                                </td>
+
+                                <td>
+                                    <?php echo $rowdoc["Text"]; ?>
+                                </td>
+
+                                <td>
+                                    <?php echo "<p class='text-success'>ใช้งาน</p>";
+                                    ?>
+                                </td>
+
+                                <!-- ปุ่ม -->
+                                <td class="table_edit">
+                                    <!-- ปุ่ม view -->
+                                    <a href="#" class="btn btn-info view-detail" data-id="<?php echo $rowdoc["DocumentID"]; ?>" data-num="<?php echo 'อว.6503' . $typenum . '/' . $rowdoc["resultNumber"]; ?>" data-sentname="<?php echo $rowdoc["Sent_Name"]; ?>" data-resvname="<?php echo $rowdoc["Receive_Name"]; ?>" data-text="<?php echo $rowdoc["Text"]; ?>" data-status="<?php echo $rowdoc["Status"]; ?>">
+                                        view
+                                    </a>
+
+                                    <!-- ปุ่ม edit,cancel -->
+                                    <?php
+                                    if ($rowdoc["Status"] == 1) {
+                                        echo "<a class='btn btn-success edit-doc' href='Editdocument.php?docid= {$rowdoc["DocumentID"]}'>edit</a>";
+                                        echo "<a class='btn btn-danger cancel-doc ' href='cancel_document.php?docid= {$rowdoc["DocumentID"]}' onclick=\"return confirm('คุณต้องการยกเลิกเอกสารนี้ใช่หรือไม่?')\">cancel</a>";
+                                    }
+                                    ?>
+                                    
+                                    <!-- <a type="button" class="btn btn-danger cancel-doc" 
+                                    data-date="<?php echo $rowdoc["Date"]; ?>" 
+                                    data-num="<?php echo 'อว.6503' . $typenum . '/' . $rowdoc["resultNumber"]; ?>"
+                                    data-resvname="<?php echo $rowdoc["Receive_Name"]; ?>"
+                                    data-sentname="<?php echo $rowdoc["Sent_Name"]; ?>" 
+                                    data-text="<?php echo $rowdoc["Text"]; ?>" 
+                                    data-status="<?php echo $rowdoc["Status"]; ?>"
+                                    onClick="document.getElementById('hid').style.display = 'none';">cancel</a> -->
+                                    
+                                </td>
+                            </tr>
+                    <?php }
+                    } ?>
                 </tbody>
+
                 <tfoot>
                     <tr>
                         <th>วันที่</th>
@@ -171,7 +247,7 @@ if (!$_SESSION['login']) {
                     <input type="text" name="resvname" id="resvname"><br>
 
                     <label for="text">เรื่อง</label>
-                    <input type="text" name="text" id="text" ><br>
+                    <input type="text" name="text" id="text"><br>
 
                     <label for="status">สถานะ</label>
                     <input type="text" name="status" id="status"><br>
@@ -195,6 +271,8 @@ if (!$_SESSION['login']) {
         $('.mydatatable').DataTable();
     </script>
     <script type="text/javascript" src="viewmodal.js"></script>
+
+    <!-- <script type="text/javascript" src="cancel.js"></script> -->
 
 </body>
 
